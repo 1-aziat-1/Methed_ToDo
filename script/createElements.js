@@ -1,3 +1,5 @@
+import randomId from './option.js';
+
 export const createHeader = (name) => {
   const title = document.createElement('h2');
   title.textContent = `Список дел - ${name}`;
@@ -23,6 +25,7 @@ export const createForm = () => {
   input.className = `form-control`;
   input.placeholder = 'ввести задачу';
   input.type = 'text';
+  input.name = 'title';
 
   label.append(input);
 
@@ -63,14 +66,14 @@ export const createTable = () => {
   const tbody = document.createElement('tbody');
   table.tbody = tbody;
 
-
   table.append(thead, tbody);
   return table;
 };
 
-export const createRow = ({number, title, completed = 'В процессе'}) => {
+export const createRow = ({id, number, title, completed = 'В процессе'}) => {
   const tr = document.createElement('tr');
   tr.className = `table-light`;
+  tr.id = id;
 
   const tdNumber = document.createElement('td');
   tdNumber.textContent = number;
