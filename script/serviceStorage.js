@@ -8,4 +8,14 @@ export const removeItemStorage = (name, itemId) => {
   setStorage(name, newData);
 };
 
+export const successItemStorage = (name, itemId) => {
+  const data = getStorage(name);
+  data.forEach(item => {
+    if (item.id === itemId) {
+      item.completed = !item.completed;
+    }
+  });
+  setStorage(name, data);
+};
+
 

@@ -5,9 +5,7 @@ export const renderList = (app, title) => {
   const header = create.createHeader(title);
   const {
     form,
-    label,
-    btnSubmit,
-    btnReset,
+    selectElement,
   } = create.createForm();
   const wrapper = create.createWrapper();
   const table = create.createTable();
@@ -18,9 +16,7 @@ export const renderList = (app, title) => {
     header,
     form,
     list: table.tbody,
-    label,
-    btnSubmit,
-    btnReset,
+    selectElement,
   };
 };
 
@@ -29,4 +25,11 @@ export const renderItem = (elem, name) => {
   const allItem = data.map(create.createRow);
   elem.append(...allItem);
   return allItem;
+};
+
+export const renderNumber = (list) => {
+  const tdNumber = list.querySelectorAll('.number');
+  for (let i = 0; i < tdNumber.length; i++) {
+    tdNumber[i].textContent = i + 1;
+  }
 };

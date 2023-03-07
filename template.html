@@ -9,7 +9,27 @@
 
 </head>
 <body>
-  <div class="app-container vh-100 w-100 d-flex align-items-center justify-content-center flex-column">
+  
+  <div class="modal show d-flex " tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header d-block">
+          <h5 class="modal-title text-center">Добро пожаловать!</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label" for="login" >Введите свое имя для авторизации!</label>
+              <input class="form-control" id="login" name="login">
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="app-container vh-100 w-100 d-flex align-items-center justify-content-center flex-column">
 
     <h3>Todo App</h3>
     <form class="d-flex align-items-center mb-3">
@@ -72,6 +92,6 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div> -->
 </body>
 </html>

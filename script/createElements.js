@@ -1,16 +1,40 @@
-import randomId from './option.js';
-
 export const createHeader = (name) => {
   const title = document.createElement('h2');
   title.textContent = `Список дел - ${name}`;
   return title;
 };
 
-const createBtn = (listClasses, title, typeName = '') => {
+export const createModal = () => {
+  const warningElement = document.createElement('div');
+  warningElement.className = 'modal show d-flex bg-secondary bg-opacity-50';
+  warningElement.tabIndex = '-10';
+  warningElement.insertAdjacentHTML('beforeend', `
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header d-block">
+          <h5 class="modal-title text-center">Добро пожаловать!</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label" for="login" >Введите свое имя для авторизации!</label>
+              <input class="form-control" id="login" name="login">
+            </div>
+            <button class="btn btn-primary" type="submit" name='btn'>Отправить</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  `);
+  return warningElement;
+};
+
+const createBtn = (listClasses, title, typeName = '', option = false) => {
   const btn = document.createElement('button');
   btn.className = listClasses;
   btn.textContent = title;
   btn.type = typeName;
+  btn.disabled = option;
   return btn;
 };
 
@@ -29,16 +53,26 @@ export const createForm = () => {
 
   label.append(input);
 
-  const btnReset = createBtn(`btn btn-warning`, 'Очистить', 'reset');
-  const btnSubmit = createBtn(`btn btn-primary me-3`, 'Сохранить', 'submit');
+  const selectElement = document.createElement('select');
+  selectElement.className = `form-select me-3 w-auto`;
+  selectElement.name = 'select';
+  selectElement.innerHTML = `
+    <option selected value="table-light">Обыкновенная</option>
+    <option class="text-warning" value="table-warning">Важная</option>
+    <option class="text-danger" value="table-danger">Срочная</option>
+  `;
 
-  form.append(label, btnSubmit, btnReset);
+  const btnReset = createBtn(`btn btn-warning`, 'Очистить', 'reset', true);
+  const btnSubmit = createBtn(`btn btn-primary me-3`, 'Сохранить', 'submit', true);
+
+  form.append(label, selectElement, btnSubmit, btnReset);
 
   return {
     form,
     label,
     btnSubmit,
     btnReset,
+    selectElement,
   };
 };
 
@@ -70,26 +104,28 @@ export const createTable = () => {
   return table;
 };
 
-export const createRow = ({id, number, title, completed = 'В процессе'}) => {
+export const createRow = ({id, title, completed, important}) => {
   const tr = document.createElement('tr');
-  tr.className = `table-light`;
+  tr.className = completed ? `table-success` : `${important}`;
   tr.id = id;
 
   const tdNumber = document.createElement('td');
-  tdNumber.textContent = number;
+  tdNumber.className = 'number';
 
   const tdTitle = document.createElement('td');
-  tdTitle.className = 'task';
+  tdTitle.className = completed ? 'task text-decoration-line-through' : 'task';
   tdTitle.textContent = title;
 
   const tdCompleted = document.createElement('td');
-  tdCompleted.textContent = completed;
+  tdCompleted.className = 'complete';
+  tdCompleted.textContent = completed ? 'Выполнена' : 'В процессе';
 
   const tdBtnWrapper = document.createElement('td');
 
   const btnRemove = createBtn('btn btn-danger me-2', 'Удалить');
-  const btnCompleted = createBtn('btn btn-success', 'Завершить');
-  tdBtnWrapper.append(btnRemove, btnCompleted);
+  const btnCompleted = createBtn('btn btn-success me-2', 'Завершить');
+  const btnEdit = createBtn('btn btn-warning', 'Редактировать');
+  tdBtnWrapper.append(btnRemove, btnCompleted, btnEdit);
 
   tr.append(tdNumber, tdTitle, tdCompleted, tdBtnWrapper);
   return tr;
