@@ -104,8 +104,8 @@ export const controlLogin = (app, modalLogin) => {
   const inputLogin = formLogin.login;
   formLogin.addEventListener('submit', (event) => {
     event.preventDefault();
-    const name = inputLogin.value;
-    if (name.trim() === '') return;
+    const name = inputLogin.value.trim();
+    if (name === '') return;
     const {
       form,
       list,
