@@ -134,7 +134,6 @@ export const controlItem = (list, name) => {
 export const controlLogin = (app, modalLogin) => {
   const formLogin = modalLogin.querySelector('form');
   const inputLogin = formLogin.login;
-  inputLogin.value = 'Иван';
   formLogin.addEventListener('submit', (event) => {
     event.preventDefault();
     const name = inputLogin.value.trim();
