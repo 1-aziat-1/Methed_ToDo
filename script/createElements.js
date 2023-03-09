@@ -123,10 +123,14 @@ export const createRow = ({id, title, completed, important}) => {
   const tdBtnWrapper = document.createElement('td');
 
   const btnRemove = createBtn('btn btn-danger me-2', 'Удалить');
-  const btnCompleted = createBtn('btn btn-success me-2', 'Завершить');
-  const btnEdit = createBtn('btn btn-warning', 'Редактировать');
-  tdBtnWrapper.append(btnRemove, btnCompleted, btnEdit);
 
+  const btnCompleted = createBtn('btn btn-success me-2');
+  btnCompleted.textContent = completed ? 'Начать' : 'Завершить';
+
+  const btnEdit = createBtn('btn btn-warning', 'Редактировать');
+  btnEdit.disabled = completed ? true : '';
+
+  tdBtnWrapper.append(btnRemove, btnCompleted, btnEdit);
   tr.append(tdNumber, tdTitle, tdCompleted, tdBtnWrapper);
   return tr;
 };

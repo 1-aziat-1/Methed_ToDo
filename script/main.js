@@ -1,9 +1,5 @@
-import {controlBtn, controlItem, controlLogin, formControl} from './controlElements.js';
-import { createModal } from './createElements.js';
-import {renderItem, renderList, renderNumber} from './render.js';
-
-
-const data = [];
+import {controlLogin} from './controlElements.js';
+import {createModal} from './createElements.js';
 
 {
   const init = (selectorApp) => {
@@ -12,20 +8,6 @@ const data = [];
     const modalLogin = createModal();
     app.append(modalLogin);
     controlLogin(app, modalLogin);
-    // const {
-    //   header,
-    //   form,
-    //   list,
-    //   label,
-    //   btnSubmit,
-    //   btnReset,
-    // } = renderList(app, name);
-
-    // controlItem(list, name);
-    // formControl(form, list, name);
-    // controlBtn(form);
-    // renderItem(list, name);
-    // renderNumber(list);
   };
 
   window.todoListInit = init;
